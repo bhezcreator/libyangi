@@ -1,0 +1,158 @@
+/* HEADER */
+.app-header {
+    height: var(--header-height);
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+/* NAV */
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-nav);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.nav a i {
+    font-size: var(--icon-size);
+}
+
+/* Hover */
+.nav a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* Active */
+.nav a.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+}
+
+/* USER */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.user i {
+    font-size: 1.6rem;
+}
+
+/* MENU TOGGLE (mobile) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: var(--card);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 10px;
+        display: none;
+    }
+
+    .nav a {
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .nav.show {
+        display: flex;
+    }
+}
+
+
+
+
+
+
+<header class="app-header">
+
+    <!-- Logo -->
+    <div class="logo">
+        <span class="logo-text">Libyangi</span>
+    </div>
+
+    <!-- Toggle mobile -->
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="las la-bars"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navMenu">
+        <a href="#" class="active">
+            <i class="las la-home"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="#">
+            <i class="las la-file-invoice"></i>
+            <span>Factures</span>
+        </a>
+
+        <a href="#">
+            <i class="las la-users"></i>
+            <span>Clients</span>
+        </a>
+
+        <a href="#">
+            <i class="las la-cog"></i>
+            <span>Paramètres</span>
+        </a>
+    </nav>
+
+    <!-- User -->
+    <div class="user">
+        <span class="user-name">
+            {{ \Illuminate\Support\Str::limit(auth()->user()->name, 5, '...') }}
+        </span>
+        <i class="las la-user-circle"></i>
+    </div>
+
+</header>
