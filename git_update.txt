@@ -1,0 +1,23 @@
+Chaque fois que tu modifies ton projet :
+
+git add .
+git commit -m "description des modifications"
+git push
+
+
+
+
+
+Quand quelqu’un clone ton projet :
+
+git clone https://github.com/ton-user/mon-projet.git
+cd mon-projet
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+
+et 
+
+npm install && npm run dev
+touch README.md
