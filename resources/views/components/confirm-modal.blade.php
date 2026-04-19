@@ -48,14 +48,14 @@
             <!-- Footer -->
             <div class="modal-interne-footer">
                 <button
-                    class="btn-confirm btn-outline"
+                    class="btn btn-outline"
                     @click="$wire.confirmingDelete = false"
                 >
                     {{ $cancelText }}
                 </button>
 
                 <button
-                    class="btn-confirm btn-danger"
+                    class="btn btn-danger"
                     wire:click="confirm"
                 >
                     {{ $confirmText }}

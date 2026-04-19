@@ -28,18 +28,14 @@
         </div>
     </div>
 
-    <div class="container">
-      <div class="card">
-        <h2><i class="la la-hand-wave"></i> Bienvenue 👋</h2>
-        <p>Gère tes invitations facilement et professionnellement.</p>
-      </div>
+
 
       <div class="card">
         <h3><i class="la la-history"></i> Invitations récentes</h3>
         <p>Aucune invitation pour le moment.</p>
       </div>
 
-          <div class="app-tab-container">
+    <div class="app-tab-container">
         <div class="app-tab-header">
             <h2 class="app-tab-title">Liste des factures</h2>
             <input type="text" class="app-tab-search" placeholder="Rechercher...">
@@ -86,6 +82,5 @@
         </div>
     </div>
 
-    </div>
 
 @endsection

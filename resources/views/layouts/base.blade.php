@@ -16,6 +16,21 @@
         <img src="images/logo libyangi mobile transp.png" alt="logo" />
       </div>
     </div>
+
+    <div x-data="toastSystem()" x-on:toast.window="add($event.detail)" class="toast-container" >
+      <template x-for="(toast, index) in toasts" :key="index">
+          <div
+              class="app-toast"
+              x-show="toast.show"
+              x-transition
+              :style="'border-left:5px solid ' + toast.color"
+          >
+              <span class="app-toast-icon" x-text="toast.icon"></span>
+              <span class="app-toast-message" x-text="toast.message"></span>
+          </div>
+      </template>
+    </div>
+
     <!-- ================= HEADER ================= -->
     <header>
       <div class="logo">
@@ -59,12 +74,49 @@
     </header>
 
     <!-- ================= CONTENT ================= -->
-    @yield('content')
-
+    <div class="container">
+      @yield('content')
+    </div>
     <!-- ================= BOTTOM NAV ================= -->
      @include('partials.nav')
 
       @livewireScripts
+      <script>
+          function toastSystem() {
+            return {
+                toasts: [],
+
+                add(data) {
+
+                    const styles = {
+                        success: { icon: '✔', color: 'var(--primary)' },
+                        error:   { icon: '✖', color: 'var(--color-badge)' },
+                        info:    { icon: 'ℹ', color: 'var(--secondary)' },
+                        warning: { icon: '⚠', color: 'var(--accent)' },
+                    };
+
+                    let type = data.type ?? 'info';
+                    let config = styles[type];
+
+                    let toast = {
+                        message: data.message ?? '',
+                        icon: config.icon,
+                        color: config.color,
+                        show: true
+                    };
+
+                    this.toasts.push(toast);
+
+                    setTimeout(() => {
+                        toast.show = false;
+                        setTimeout(() => {
+                            this.toasts.shift();
+                        }, 300);
+                    }, data.duration ?? 3000);
+                }
+            }
+        }
+        </script>
     <script src="script.js"></script>
   </body>
 </html>
