@@ -11,11 +11,11 @@
   </head>
 
   <body>
-    <div id="loader">
+ {{--    <div id="loader">
       <div class="loader-logo-img">
-        <img src="images/logo libyangi mobile transp.png" alt="logo" />
+        <img src="{{ asset('images/logo libyangi mobile transp.png') }}" alt="logo" />
       </div>
-    </div>
+    </div> --}}
 
     <div x-data="toastSystem()" x-on:toast.window="add($event.detail)" class="toast-container" >
       <template x-for="(toast, index) in toasts" :key="index">
@@ -34,7 +34,7 @@
     <!-- ================= HEADER ================= -->
     <header>
       <div class="logo">
-        <img src="images/logo libyangi mobile transp.png" alt="logo" />
+        <img src="{{ asset('images/logo libyangi mobile transp.png') }}" alt="logo" />
       </div>
 
       <div class="header-right">
@@ -50,8 +50,8 @@
               {{ \Illuminate\Support\Str::limit(auth()->user()->name, 5, '...') }}
 
           <div class="dropdown" id="dropdown">
-            <a href="#" class="dropdown-a"><i class="la la-user"></i> Profil</a>
-            <a href="#" class="dropdown-a"><i class="la la-cog"></i> Paramètres</a>
+            {{-- <a href="#" class="dropdown-a"><i class="la la-user"></i> Profil</a> --}}
+            <a href="{{ route('settings') }}" class="dropdown-a"><i class="la la-cog"></i> Paramètres</a>
             <a href="#" class="dropdown-a">
               <form method="POST" action="{{ route('logout') }}" style="display:inline">
                   @csrf

@@ -1,15 +1,10 @@
 Chaque fois que tu modifies ton projet :
-
 git add .
 git commit -m "description des modifications"
 git push
 
 
-
-
-
 Quand quelqu’un clone ton projet :
-
 git clone https://github.com/ton-user/mon-projet.git
 cd mon-projet
 composer install
@@ -21,3 +16,30 @@ et
 
 npm install && npm run dev
 touch README.md
+
+
+
+Logique :
+Evenement :
+-   Liste event
+-   Création, update, delete, view
+-   Attacher l'adresse
+-   Attacher produit
+-   Indiquer thème
+-   Indiquer User concerner
+-   Récupérer automatiquement abonnement actif de User concerner
+
+Tableau de bord event(Admin) :
+-   btn show event
+-   btn partager : WhatsApp, E-mail, Facebook
+-   btn show page Attache Sécurité(Vérificateurs des invitations)
+
+Tableau de bord event(Client) :
+-   btn partager : WhatsApp, E-mail, Facebook, Code qr
+-   btn show event
+-   Consommations choices
+-   Panneau des invités et leurs messages : Imprimer liste invités confirmés et leurs messages
+-   Crud : Table
+-   Attribuer les tables aux invités
+-   Panneau des Vérificateurs des invitations : Imprimer liste des Vérificateurs
+-   CRUD : Images lié à l'event

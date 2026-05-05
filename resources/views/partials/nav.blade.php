@@ -4,12 +4,12 @@
     <span>Accueil</span>
   </a>
 
-  <a href="{{ route('events') }}" class="nav-item {{ request()->routeIs('events') ? 'active' : '' }}">
+  <a href="{{ route('events.index') }}" class="nav-item {{ request()->routeIs('events.*') ? 'active' : '' }}">
     <i class="la la-calendar"></i>
     <span>Evénements</span>
   </a>
 
-  <a href="{{ route('demandes') }}" class="nav-item {{ request()->routeIs('demandes') ? 'active' : '' }}">
+  <a href="{{ route('demandes.index') }}" class="nav-item {{ request()->routeIs('demandes.*') ? 'active' : '' }}">
     <i class="la la-hourglass-half"></i> 
     <span>Demandes</span>
   </a>

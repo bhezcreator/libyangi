@@ -71,8 +71,8 @@ class Plans extends Component
         $this->validate();
 
         $features = is_array($this->features)
-        ? $this->features
-        : explode(',', $this->features);
+            ? $this->features
+            : explode(',', $this->features);
 
         Plan::updateOrCreate(
             ['id' => $this->planId],
@@ -94,7 +94,7 @@ class Plans extends Component
         $this->showModalInterne = false;
     }
 
-    public function edit($id)
+    public function edit(Int $id)
     {
         $plan = Plan::findOrFail($id);
 
@@ -117,7 +117,7 @@ class Plans extends Component
     /* ========================
         DELETE
     ========================*/
-    public function confirmDelete($id)
+    public function confirmDelete(Int $id)
     {
         $this->deleteId = $id;
         $this->confirmingDelete = true;

@@ -15,11 +15,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/events', function () {
         return view('pages.event');
-    })->name('events');
+    })->name('events.index');
+
+    Route::get('/event.add', function () {
+        return view('pages.addEvent');
+    })->name('events.add');
 
     Route::get('/demandes', function () {
         return view('pages.demande');
-    })->name('demandes');
+    })->name('demandes.index');
+
+    Route::get('/demandes.add{plan}', function ($plan) {
+        return view('pages.demandeAdd', compact('plan'));
+    })->name('demandes.add');
 
     Route::get('/validations', function () {
         return view('pages.validation');

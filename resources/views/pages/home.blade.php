@@ -3,37 +3,7 @@
 
 @section('content')
 
-    <div class="breadcrumb">
-        <h3>
-            Tableau de bord
-        </h3>
-
-        <div class="breadcrumbs">
-                <a href="#">
-                <i class="las la-home"></i>
-                <span>Accueil</span>
-            </a>
-
-            <span class="separator">/</span>
-
-            <a href="#">
-                Factures
-            </a>
-
-            <span class="separator">/</span>
-
-            <span class="current">
-                Détails
-            </span>
-        </div>
-    </div>
-
-
-
-      <div class="card">
-        <h3><i class="la la-history"></i> Invitations récentes</h3>
-        <p>Aucune invitation pour le moment.</p>
-      </div>
+    @livewire('plans.carou-plans')
 
     <div class="app-tab-container">
         <div class="app-tab-header">
@@ -81,6 +51,5 @@
             </table>
         </div>
     </div>
-
 
 @endsection
