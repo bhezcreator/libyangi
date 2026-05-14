@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="{{ asset('styles/style-admin.css') }}">
     <title>@yield('title', 'Libyangi')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo libyangi mobile transp.png') }}" />
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     @livewireStyles
   </head>
 
   <body>
- {{--    <div id="loader">
+    <div id="loader">
       <div class="loader-logo-img">
         <img src="{{ asset('images/logo libyangi mobile transp.png') }}" alt="logo" />
       </div>
-    </div> --}}
+    </div>
 
     <div x-data="toastSystem()" x-on:toast.window="add($event.detail)" class="toast-container" >
       <template x-for="(toast, index) in toasts" :key="index">
@@ -77,11 +78,13 @@
     <div class="container">
       @yield('content')
     </div>
-    <!-- ================= BOTTOM NAV ================= -->
-     @include('partials.nav')
 
-      @livewireScripts
-      <script>
+    <!-- ================= BOTTOM NAV ================= -->
+    @include('partials.nav')
+
+    @livewireScripts
+
+    <script>
           function toastSystem() {
             return {
                 toasts: [],
@@ -117,6 +120,95 @@
             }
         }
         </script>
-    <script src="script.js"></script>
+    <script src="{{ asset('script.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+
+        const CHART_COLORS = [
+            '#2563eb', '#10b981', '#f59e0b', '#ef4444',
+            '#8b5cf6', '#14b8a6', '#f97316', '#22c55e',
+            '#3b82f6', '#ec4899', '#eab308', '#6366f1'
+        ];
+
+        function chartComponent(initialData) {
+
+            return {
+
+                chart: null,
+                data: initialData,
+
+                init() {
+
+                    this.renderChart();
+
+                    window.addEventListener('updateChart', (event) => {
+                        this.update(event.detail.chart);
+                    });
+                },
+
+                renderChart() {
+
+                    // Détruire ancien graphique
+                    if (this.chart) {
+                        this.chart.destroy();
+                    }
+
+                    this.chart = new ApexCharts(this.$el, {
+
+                        chart: {
+                            type: 'bar',
+                            height: 350,
+                            toolbar: {
+                                show: false
+                            }
+                        },
+
+                        series: this.data.series,
+
+                        xaxis: {
+                            categories: this.data.categories
+                        },
+
+                        plotOptions: {
+                            bar: {
+                                distributed: true,
+                                borderRadius: 8,
+                                columnWidth: '50%'
+                            }
+                        },
+
+                        dataLabels: {
+                            enabled: false
+                        },
+
+                        colors: CHART_COLORS
+                    });
+
+                    this.chart.render();
+                },
+
+                update(newData) {
+
+                    this.data = newData;
+
+                    if (!this.chart) {
+                        this.renderChart();
+                        return;
+                    }
+
+                    this.chart.updateOptions({
+                        xaxis: {
+                            categories: newData.categories
+                        }
+                    });
+
+                    this.chart.updateSeries(newData.series);
+                }
+            }
+        }
+
+    </script>
   </body>
 </html>

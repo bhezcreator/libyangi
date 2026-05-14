@@ -2,17 +2,21 @@
 
 namespace App\Livewire\Events;
 
+use App\Models\Event;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Event;
 
 class EventsPresent extends Component
 {
     use WithPagination;
 
     public $search = '';
+    protected $paginationTheme = 'custom';
 
-    protected $paginationTheme = 'tailwind';
+    public $confirmingDelete = false;
+    public $deleteId;
 
     protected $queryString = ['search'];
 
@@ -21,16 +25,53 @@ class EventsPresent extends Component
         $this->resetPage();
     }
 
-    public function delete(Int $id)
+    /* ========================
+        DELETE
+    ========================*/
+    public function confirmDelete(int $id)
     {
-        Event::findOrFail($id)->delete();
-        session()->flash('message', 'Event supprimé avec succès.');
+        $this->deleteId = $id;
+        $this->confirmingDelete = true;
+    }
+
+    public function confirm()
+    {
+        $event = $this->baseQuery()->findOrFail($this->deleteId);
+        $event->delete();
+
+        $this->confirmingDelete = false;
+
+        $this->dispatch(
+            'toast',
+            type: 'success',
+            message: 'Event supprimé avec succès.'
+        );
+    }
+
+    /**
+     * Base query avec gestion des rôles
+     */
+    public function baseQuery()
+    {
+        $query = Event::query();
+
+        $user = User::find(Auth::id());
+        // Si ce n'est pas un admin
+        if ($user->getRoleNames()->first() !== 'admin') {
+
+            $query->where('user_id', $user->id);
+        }
+
+        return $query;
     }
 
     public function render()
     {
-        $events = Event::where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('type', 'like', '%' . $this->search . '%')
+        $events = $this->baseQuery()
+            ->where(function ($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('type', 'like', '%' . $this->search . '%');
+            })
             ->latest()
             ->paginate(6);
 

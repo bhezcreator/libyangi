@@ -3,53 +3,11 @@
 
 @section('content')
 
-    @livewire('plans.carou-plans')
+    @if (Auth::user()->getRoleNames()->first() !== 'admin')
+        @livewire('plans.carou-plans')
+    @else
+        
+    @endif
 
-    <div class="app-tab-container">
-        <div class="app-tab-header">
-            <h2 class="app-tab-title">Liste des factures</h2>
-            <input type="text" class="app-tab-search" placeholder="Rechercher...">
-        </div>
-
-        <div class="app-tab-wrapper">
-            <table class="app-tab-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Client</th>
-                        <th>Date</th>
-                        <th>Montant</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Jean Dupont</td>
-                        <td>2026-04-17</td>
-                        <td>$120</td>
-                        <td><span class="app-tab-badge success">Payé</span></td>
-                        <td>
-                            <button class="app-tab-btn">Voir</button>
-                            <button class="app-tab-btn danger">Supprimer</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Marie Claire</td>
-                        <td>2026-04-16</td>
-                        <td>$80</td>
-                        <td><span class="app-tab-badge warning">En attente</span></td>
-                        <td>
-                            <button class="app-tab-btn btn-primary"><i class="la la-eye"></i> Voir</button>
-                            <button class="app-tab-btn btn-danger">Supprimer</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+    @livewire('event.stat-admin-event')
 @endsection

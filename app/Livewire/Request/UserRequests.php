@@ -11,7 +11,7 @@ class UserRequests extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'custom';
 
     public $search = '';
     protected $queryString = ['search'];

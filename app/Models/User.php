@@ -48,4 +48,12 @@ class User extends Authenticatable
             ->logAll()
             ->useLogName('user');
     }
+
+    public function controlledEvents()
+    {
+        return $this->belongsToMany(
+            Event::class,
+            'event_user'
+        )->withTimestamps();
+    }
 }

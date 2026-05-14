@@ -32,21 +32,21 @@
 
                     <p class="events-present-organizer">
                         <i class="las la-user"></i>
-                        Organisateur : {{ $event->user_id }}
+                        Organisateur : {{ $event->user->name }}
                     </p>
                 </div>
 
                 <!-- Actions -->
                 <div class="events-present-actions">
-                    <a href="{{ route('events.show', $event->id) }}">
+                    <a href="{{ route('events.detail', $event->id) }}">
                         <i class="las la-eye"></i>
                     </a>
 
-                    <a href="{{ route('events.edit', $event->id) }}">
+                <a href="{{ route('events.edit', ['subscription_id' => $event->subscription_id, 'user_id' => $event->user_id, 'event' => $event->id ]) }}">
                         <i class="las la-edit"></i>
-                    </a>
+                    </a>    
 
-                    <button wire:click="delete({{ $event->id }})">
+                    <button wire:click="confirmDelete({{ $event->id }})" >
                         <i class="las la-trash"></i>
                     </button>
                 </div>
@@ -58,9 +58,13 @@
 
     </div>
 
-    <!-- Pagination -->
-    <div class="events-present-pagination">
-        {{ $events->links() }}
+    <!-- PAGINATION -->
+    <div class="forms-pagination">
+        <x-pagination :paginator="$events" />
     </div>
 
+        <!-- DELETE MODAL -->
+    <x-confirm-modal wire:model="confirmingDelete"
+        title="Suppression"
+        message="Voulez-vous supprimer cet événement ?" />
 </div>

@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Ajouter un événement')
+@section('title', 'Evénement')
 
 @section('content')
 
@@ -15,7 +15,7 @@
             </a>
 
             <span class="separator">/</span>
-            <a href="{{ route('events') }}">
+            <a href="{{ route('events.index') }}">
                 <span>Evénements</span>
             </a>
 
@@ -26,5 +26,10 @@
         </div>
     </div>
 
+    @livewire('event.add-event', [
+        'subscription_id' => $subscription_id,
+        'user_id' => $user_id,
+        'event' => $event ?? null
+    ])
     
 @endsection

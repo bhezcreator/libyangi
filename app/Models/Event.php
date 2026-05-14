@@ -44,4 +44,17 @@ class Event extends Model
     {
         return $this->belongsToMany(Product::class, 'event_product');
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function controllers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'event_user'
+        )->withTimestamps();
+    }
 }

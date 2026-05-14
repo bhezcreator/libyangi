@@ -5,7 +5,7 @@
 
     <div class="breadcrumb">
         <h3>
-            <i class="la la-cog"></i> Evénements
+            <i class="la la-calendar"></i> Evénements
         </h3>
 
         <div class="breadcrumbs">
@@ -21,5 +21,13 @@
         </div>
     </div>
 
-    @livewire('table-event')
+    {{-- @if (Auth::user()->getRoleNames()->first() !== 'admin')
+        @livewire('plans.carou-plans')
+    @else
+        
+    @endif
+    @livewire('table-event') --}}
+
+    @livewire('events.events-present')
+    
 @endsection

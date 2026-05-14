@@ -12,11 +12,11 @@ class CreateRequest extends Component
 {
     use WithFileUploads;
 
-    public Int $plan; // ID du plan
-    public string $description;
+    public int $plan;
+    public string $description = '';
     public $files = [];
 
-    public function mount(Int $plan)
+    public function mount(int $plan)
     {
         $this->plan = $plan;
     }
@@ -26,18 +26,29 @@ class CreateRequest extends Component
         'files.*' => 'file|max:5120'
     ];
 
+    // ✅ SUPPRIMER UN FICHIER AVANT UPLOAD
+    public function removeFile($index)
+    {
+        unset($this->files[$index]);
+        $this->files = array_values($this->files); // reindex
+    }
+
+    // ✅ ANNULER
+    public function cancel()
+    {
+        return redirect()->route('home');
+    }
+
     public function save()
     {
         $this->validate();
 
-        // 1. Créer la souscription
         $subscription = Subscription::create([
             'user_id' => Auth::id(),
             'plan_id' => $this->plan,
             'status' => 'pending'
         ]);
 
-        // 2. Créer la demande
         $request = Request::create([
             'user_id' => Auth::id(),
             'subscription_id' => $subscription->id,
@@ -45,19 +56,16 @@ class CreateRequest extends Component
             'description' => $this->description
         ]);
 
-        // 3. Upload des fichiers avec Spatie Medialibrary
         if ($this->files) {
             foreach ($this->files as $file) {
-                // 1. Stocker d'abord le fichier
+
                 $path = $file->store('requests');
 
-                // 2. Ensuite l'envoyer à Spatie
                 $request
                     ->addMedia(storage_path('app/' . $path))
                     ->usingName($file->getClientOriginalName())
                     ->toMediaCollection('requests');
 
-                // Optionnel si tu veux garder ta table RequestMedia
                 $request->mediase()->create([
                     'file' => $file->getClientOriginalName(),
                     'type' => $file->getMimeType(),
@@ -65,13 +73,9 @@ class CreateRequest extends Component
             }
         }
 
-        $this->dispatch(
-            'toast',
-            type: 'success',
-            message: 'Demande envoyée avec succès'
-        );
+        $this->dispatch('toast', type: 'success', message: 'Demande envoyée avec succès');
 
-        return redirect()->route('demandes');
+        return redirect()->route('demandes.index');
     }
 
     public function render()

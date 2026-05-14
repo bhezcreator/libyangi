@@ -29,9 +29,9 @@
             </thead>
 
             <tbody>
-                @forelse($requests as $req)
-                    <tr>
-                        <td>{{ $req->id }}</td>
+                @forelse($requests as $i => $req)
+                    <tr wire:key="{{ $req->id }}">
+                        <td>{{ $i + 1 }}</td>
 
                         <td>{{ $req->subscription->plan->name ?? '-' }}</td>
 

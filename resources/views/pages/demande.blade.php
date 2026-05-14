@@ -21,6 +21,12 @@
         </div>
     </div>
 
-    @livewire('request.user-requests')
+    @if (auth()->user()->hasRole('admin'))
+        @livewire('request.admin-request')
+    @else
+        @livewire('request.user-requests')
+    @endif
+
+
     
 @endsection
