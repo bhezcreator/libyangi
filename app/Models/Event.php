@@ -11,6 +11,7 @@ class Event extends Model
         'subscription_id',
         'theme_id',
         'title',
+        'concerne',
         'slug',
         'description',
         'start_date',
@@ -48,6 +49,11 @@ class Event extends Model
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function programmes()
+    {
+        return $this->hasMany(Programmes::class);
     }
 
     public function controllers()

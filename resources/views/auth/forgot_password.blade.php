@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('title') {{ 'Reinitialiser le mot de passe' }} @endsection
 @section('content')
 
     <form class="form" method="POST" action="{{ route('password.email') }}">

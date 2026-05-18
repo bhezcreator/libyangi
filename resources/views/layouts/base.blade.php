@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Libyangi est une application de gestion des événements et invitations : fête de mariage, fête d'anniversaire, reunion, baptêmes, soirées privées, et bien plus encore."> 
     <link rel="stylesheet" href="{{ asset('line-awesome-1.3.0/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/style-admin.css') }}">
-    <title>@yield('title', 'Libyangi')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo libyangi mobile transp.png') }}" />
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <title>{{ config('app.name', 'Libyangi') }} - @yield('title')</title>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     @livewireStyles
   </head>
 

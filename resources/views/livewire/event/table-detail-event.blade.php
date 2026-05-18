@@ -9,18 +9,28 @@
                 wire:click="setTab('tableau')">
                 <i class="las la-chart-pie"></i> Tableau de bord
             </div>
-
+            
             <div class="spm-settings-tab 
                 {{ $activeTab === 'event' ? 'active' : '' }}"
                 wire:click="setTab('event')">
                 <i class="las la-calendar-alt"></i> Evénement
             </div>
 
-            <div class="spm-settings-tab 
-                {{ $activeTab === 'invite' ? 'active' : '' }}"
-                wire:click="setTab('invite')">
-                <i class="las la-envelope-open-text"></i> Invités & messages
-            </div>
+            @if (auth()->user()->hasRole('client'))
+                <div class="spm-settings-tab 
+                    {{ $activeTab === 'invite' ? 'active' : '' }}"
+                    wire:click="setTab('invite')">
+                    <i class="las la-envelope-open-text"></i> Invités & messages
+                </div>
+            @endif
+
+            @if (auth()->user()->hasRole('admin'))
+                <div class="spm-settings-tab 
+                    {{ $activeTab === 'programme' ? 'active' : '' }}"
+                    wire:click="setTab('programme')">
+                    <i class="las la-list"></i> Programmes
+                </div>
+            @endif
 
             <div class="spm-settings-tab 
                 {{ $activeTab === 'controleur' ? 'active' : '' }}"
@@ -28,12 +38,11 @@
                 <i class="las la-user-shield"></i> Contrôleurs
             </div>
 
-            <div class="spm-settings-tab 
-                {{ $activeTab === 'photo' ? 'active' : '' }}"
-                wire:click="setTab('photo')">
-                <i class="las la-images"></i> Photos
-            </div>
-
+            @if (auth()->user()->hasRole('client'))
+                <div class="spm-settings-tab {{ $activeTab === 'photo' ? 'active' : '' }}" wire:click="setTab('photo')">
+                    <i class="las la-images"></i> Photos
+                </div>
+            @endif
         </div>
 
         <!-- CONTENT -->
@@ -51,6 +60,12 @@
             @if($activeTab === 'invite')
                 <div class="spm-settings-panel">
                     
+                </div>
+            @endif
+
+            @if($activeTab === 'programme')
+                <div class="spm-settings-panel">
+                    <livewire:programme :event_id="$id" />
                 </div>
             @endif
 

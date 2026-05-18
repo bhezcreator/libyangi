@@ -21,13 +21,6 @@
         </div>
     </div>
 
-    {{-- @if (Auth::user()->getRoleNames()->first() !== 'admin')
-        @livewire('plans.carou-plans')
-    @else
-        
-    @endif
-    @livewire('table-event') --}}
-
-    @livewire('events.events-present')
+    @livewire('event.events-present')
     
 @endsection

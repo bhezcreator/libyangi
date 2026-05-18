@@ -25,7 +25,7 @@ class AddEvent extends Component
     public $plans = [];
     public $users = [];
 
-    public $title, $description, $theme_id, $type;
+    public $title, $description, $theme_id, $type, $concerne;
     public $start_date, $end_date, $status = 'brouillon';
     public $image;
 
@@ -72,6 +72,7 @@ class AddEvent extends Component
 
             $this->eventId = $event->id;
             $this->title = $event->title;
+            $this->concerne = $event->concerne;
             $this->description = $event->description;
             $this->theme_id = $event->theme_id;
             $this->type = $event->type;
@@ -97,6 +98,7 @@ class AddEvent extends Component
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
+        'concerne' => 'nullable|string',
         'theme_id' => 'required|exists:themes,id',
         'type' => 'required|string',
         'start_date' => 'required|date',
@@ -106,7 +108,6 @@ class AddEvent extends Component
         'image' => 'nullable|image|max:5120',
 
         'addresses' => 'array|min:1',
-
         'addresses.*.address' => 'nullable|string|max:255',
         'addresses.*.latitude' => 'nullable',
         'addresses.*.longitude' => 'nullable',
@@ -124,7 +125,6 @@ class AddEvent extends Component
     public function removeAddress($index)
     {
         unset($this->addresses[$index]);
-
         $this->addresses = array_values($this->addresses);
     }
 
@@ -151,6 +151,7 @@ class AddEvent extends Component
             'subscription_id' => $this->subscription_id,
             'theme_id' => $this->theme_id,
             'title' => $this->title,
+            'concerne' => $this->concerne,
             'slug' => $slug,
             'description' => $this->description,
             'start_date' => $this->start_date,

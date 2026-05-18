@@ -2454,18 +2454,19 @@ select:focus {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     gap: 10px;
     padding: 16px;
     border-radius: 18px;
     text-decoration: none;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, var(--primary), #6d3df0);
+    background: linear-gradient(135deg, var(--primary), #5831c4);
     color: #fff;
     font-weight: 700;
     font-size: 15px;
     transition: 0.35s;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: none;
+    cursor: pointer;
     box-shadow: var(--shadow-soft);
     position: relative;
     overflow: hidden;
@@ -2490,7 +2491,7 @@ select:focus {
 }
 
 .detail-vue-event-btn:nth-child(3) {
-    background: linear-gradient(135deg, #25d366, #18b957);
+    background: linear-gradient(135deg, #25d366, #117e3b);
 }
 
 .detail-vue-event-btn:nth-child(4) {
@@ -2498,11 +2499,15 @@ select:focus {
 }
 
 .detail-vue-event-btn:nth-child(5) {
-    background: linear-gradient(135deg, #1877f2, #0f5fd1);
+    background: linear-gradient(135deg, #006aff, #1556aa);
 }
 
 .detail-vue-event-btn:nth-child(6) {
-    background: linear-gradient(135deg, var(--accent), #ea580c);
+    background: linear-gradient(135deg, var(--accent), #b9480a);
+}
+
+.detail-btn-icon {
+    font-size: 18px;
 }
 
 /* =========================================
@@ -2556,8 +2561,7 @@ select:focus {
     .detail-vue-event-title {
         font-size: 24px;
     }
-
-    .detail-vue-event-btn {
+    detail-vue-event-btn .detail-vue-event-btn {
         padding: 14px;
         font-size: 14px;
     }

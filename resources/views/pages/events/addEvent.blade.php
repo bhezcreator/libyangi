@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Détail de l\'événement')
+@section('title') {{ 'Evénement' }} @endsection
 
 @section('content')
 
@@ -21,14 +21,15 @@
 
             <span class="separator">/</span>
             <span class="current">
-                Détail
+                Evénement
             </span>
         </div>
     </div>
 
-    @if(auth()->user()->hasRole('admin'))
-        @livewire('event.detail-vue-event', ['id' => $id])
-    @else
-        @livewire('event.table-detail-event', ['id' => $id])
-    @endif
+    @livewire('event.add-event', [
+        'subscription_id' => $subscription_id,
+        'user_id' => $user_id,
+        'event' => $event ?? null
+    ])
+    
 @endsection

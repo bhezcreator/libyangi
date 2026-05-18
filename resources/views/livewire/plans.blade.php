@@ -54,7 +54,6 @@
         <x-pagination :paginator="$plans" />
     </div>
 
-
     <!-- MODAL -->
     <x-centered-modal title="{{ $isEdit ? 'Modifier' : 'Ajouter' }} Plan" width="50%">
 

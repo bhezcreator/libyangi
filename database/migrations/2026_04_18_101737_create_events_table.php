@@ -18,13 +18,14 @@ return new class extends Migration
             $table->foreignId('theme_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('title');
+            $table->string('concerne')->nullable();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('type');
             $table->string('image')->nullable();
-            $table->enum('status', ['draft', 'published', 'closed'])->default('draft');
+            $table->enum('status', ['brouillon', 'publié', 'fermé'])->default('brouillon');
 
             $table->timestamps();
         });

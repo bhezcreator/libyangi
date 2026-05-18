@@ -175,13 +175,12 @@
 
     {{-- COLONNE ACTIONS --}}
     <div class="detail-vue-event-right">
-
         <div class="detail-vue-event-sticky">
 
             <div class="detail-vue-event-share-card">
 
                 <h2 class="detail-vue-event-share-title">
-                    Actions & Partages
+                    <i class="las la-share-alt"></i> Actions & Partages
                 </h2>
 
                 {{-- VOIR --}}
@@ -189,28 +188,35 @@
                     href="{{ route('events.show', $event->slug) }}"
                     target="_blank"
                     class="detail-vue-event-btn">
-
-                    Voir Externe
-
+                    <i class="las la-external-link-alt"></i>
+                    Voir l’invitation
                 </a>
-
+                
                 {{-- WHATSAPP --}}
                 <a
-                    href="https://wa.me/?text={{ urlencode(route('events.show', $event->slug)) }}"
-                    target="_blank"
-                    class="detail-vue-event-btn">
-
+                    class="detail-vue-event-btn" id="share-whatsapp">
+                    <i class="lab la-whatsapp"></i>
                     Partager WhatsApp
-
                 </a>
 
-                {{-- EMAIL --}}
+                @php
+                    $lien = route('events.show', $event->slug);
+
+                    $subject = rawurlencode('Tu es invité(e) !');
+                    $body = rawurlencode(
+                        "Bonjour,\r\n\r\n".
+                        "Voici ton invitation :\r\n".
+                        $lien
+                    );
+                @endphp
+
                 <a
-                    href="mailto:?subject={{ $event->title }}&body={{ route('events.show', $event->slug) }}"
+                    href="mailto:?subject={{ $subject }}&body={{ $body }}"
                     class="detail-vue-event-btn">
 
-                    Partager Email
+                    <i class="las la-envelope"></i>
 
+                    Partager Email
                 </a>
 
                 {{-- FACEBOOK --}}
@@ -218,17 +224,15 @@
                     href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', $event->slug)) }}"
                     target="_blank"
                     class="detail-vue-event-btn">
-
+                    <i class="lab la-facebook-f"></i>
                     Partager Facebook
-
                 </a>
 
                 {{-- QR CODE --}}
                 <a
-                    href="{{ route('events.qr', $event->id) }}"
-                    target="_blank"
+                    href="{{ route('events.qr', [bin2hex(route('events.show', [$event->slug]))]) }}"
                     class="detail-vue-event-btn">
-
+                    <i class="las la-qrcode"></i>
                     Générer QR Code
                 </a>
 
@@ -238,4 +242,11 @@
 
     </div>
 
+    <script>
+        document.getElementById('share-whatsapp').addEventListener('click', function () {
+            const message = encodeURIComponent("*{{ $event->title }}*\n\n  _Veuillez cliquer sur le lien ci-dessous pour visualiser, réagir et télécharger celle-ci(ou celui-ci)._ \n\n👉 {{ route('events.show', $event->slug) }}");
+            const whatsappUrl = `https://wa.me/?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
 </div>

@@ -312,7 +312,7 @@ input::placeholder {
 }
 
 .text-danger {
-    color: rgb(255, 29, 29);
+    color: rgb(255, 0, 0);
     display: inline-block;
     width: 100%;
     text-align: left;

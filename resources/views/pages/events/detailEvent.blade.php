@@ -1,5 +1,12 @@
 @extends('layouts.base')
-@section('title', 'Evénement')
+@section('title', 'Détail de l\'événement')
+
+{{-- @section('og')
+    <meta property="og:title" content="{{ $event->title }}" />
+    <meta property="og:image" content="{{ asset('storage/'.$event->prochette) }}" />
+    <meta property="og:type" content="Invitation" /> 
+    <meta property="og:description" content="{{ $event->slug }}" />
+@endsection --}}
 
 @section('content')
 
@@ -21,15 +28,10 @@
 
             <span class="separator">/</span>
             <span class="current">
-                Evénement
+                Détail
             </span>
         </div>
     </div>
 
-    @livewire('event.add-event', [
-        'subscription_id' => $subscription_id,
-        'user_id' => $user_id,
-        'event' => $event ?? null
-    ])
-    
+    @livewire('event.table-detail-event', ['id' => $id])
 @endsection

@@ -1,4 +1,5 @@
 @extends('layouts.auth')
+@section('title') {{ 'Création compte' }} @endsection
 @section('content')
 
     <form class="form" method="POST" action="{{ route('register') }}">

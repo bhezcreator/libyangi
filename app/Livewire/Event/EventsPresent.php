@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Events;
+namespace App\Livewire\Event;
 
 use App\Models\Event;
 use App\Models\User;
@@ -59,7 +59,7 @@ class EventsPresent extends Component
         // Si ce n'est pas un admin
         if ($user->getRoleNames()->first() !== 'admin') {
 
-            $query->where('user_id', $user->id);
+            $query->where('user_id', $user->id)->where('status', 'publié');
         }
 
         return $query;
@@ -75,7 +75,7 @@ class EventsPresent extends Component
             ->latest()
             ->paginate(6);
 
-        return view('livewire.events.events-present', [
+        return view('livewire.event.events-present', [
             'events' => $events
         ]);
     }

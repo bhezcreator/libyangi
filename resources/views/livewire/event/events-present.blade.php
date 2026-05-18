@@ -42,13 +42,15 @@
                         <i class="las la-eye"></i>
                     </a>
 
-                <a href="{{ route('events.edit', ['subscription_id' => $event->subscription_id, 'user_id' => $event->user_id, 'event' => $event->id ]) }}">
-                        <i class="las la-edit"></i>
-                    </a>    
+                    @if (auth()->user()->hasRole('admin'))
+                        <a href="{{ route('events.edit', ['subscription_id' => $event->subscription_id, 'user_id' => $event->user_id, 'event' => $event->id ]) }}">
+                            <i class="las la-edit"></i>
+                        </a>    
 
-                    <button wire:click="confirmDelete({{ $event->id }})" >
-                        <i class="las la-trash"></i>
-                    </button>
+                        <button wire:click="confirmDelete({{ $event->id }})" >
+                            <i class="las la-trash"></i>
+                        </button>
+                    @endif
                 </div>
 
             </div>

@@ -6,7 +6,7 @@
             <h5>Information de l'événement</h5>
         </div>
 
-        <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
+        <div class="d-gril-col-12 d-gril-md-12 d-gril-12">
             <div class="d-gril-group">
                 <x-form.input label="Titre" wire:model="title" />
             </div>
@@ -14,11 +14,7 @@
 
         <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
             <div class="d-gril-group">
-                <x-form.select
-                    label="Thème"
-                    wire:model="theme_id"
-                    :options="$themes"
-                />
+                <x-form.input label="Concerne" wire:model="concerne" />
             </div>
         </div>
 
@@ -38,6 +34,18 @@
 
         <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
             <div class="d-gril-group">
+                <x-form.input type="datetime-local" label="Date début" wire:model="start_date" />
+            </div>
+        </div>
+
+        <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
+            <div class="d-gril-group">
+                <x-form.input type="datetime-local" label="Date fin" wire:model="end_date" />
+            </div>
+        </div>
+
+        <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
+            <div class="d-gril-group">
                 <x-form.select
                     label="Statut"
                     wire:model="status"
@@ -52,13 +60,11 @@
 
         <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
             <div class="d-gril-group">
-                <x-form.input type="datetime-local" label="Date début" wire:model="start_date" />
-            </div>
-        </div>
-
-        <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
-            <div class="d-gril-group">
-                <x-form.input type="datetime-local" label="Date fin" wire:model="end_date" />
+                <x-form.select
+                    label="Thème"
+                    wire:model="theme_id"
+                    :options="$themes"
+                />
             </div>
         </div>
 
