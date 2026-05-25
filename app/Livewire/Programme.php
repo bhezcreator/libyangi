@@ -19,6 +19,7 @@ class Programme extends Component
     public $type;
     public $icone;
     public $date_heure;
+    public $order;
 
     public $isEdit = false;
     public $showModalInterne = false;
@@ -36,6 +37,7 @@ class Programme extends Component
             'type' => 'required|string',
             'icone' => 'nullable|string',
             'date_heure' => 'required|date',
+            'order' => 'required|integer',
         ];
     }
 
@@ -65,6 +67,7 @@ class Programme extends Component
             'detail',
             'type',
             'icone',
+            'order',
             'date_heure'
         ]);
 
@@ -86,6 +89,7 @@ class Programme extends Component
                 'detail' => $this->detail,
                 'type' => $this->type,
                 'icone' => $this->icone,
+                'order' => $this->order,
                 'date_heure' => $this->date_heure
             ]
         );
@@ -109,6 +113,7 @@ class Programme extends Component
         $this->detail = $pro->detail;
         $this->type = $pro->type;
         $this->icone = $pro->icone;
+        $this->order = $pro->order;
         $this->date_heure = $pro->date_heure;
 
         $this->isEdit = true;

@@ -24,6 +24,7 @@
                     @endif
                     <div><b>Titre :</b> {{ $pro->titre }}</div>
                     <div><b>Type : </b> {{ $pro->type }}</div>
+                    <div><b>Ordre : </b> {{ $pro->order }}</div>
                     <div><b>Date & heure :</b> {{ \Carbon\Carbon::parse($pro->date_heure)->format('d/m/Y H:i') }}</div>
                 </div>
 
@@ -66,6 +67,7 @@
             />
             <x-form.input label="Icône" wire:model="icone" placeholder="las-list" />
             <x-form.input type="datetime-local" label="Date & heure" wire:model="date_heure" />
+            <x-form.input type="number" label="Ordre" wire:model="order" />
 
             <button class="btn btn-primary">
                 <i class="las la-save"></i>

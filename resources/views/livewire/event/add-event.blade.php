@@ -79,18 +79,13 @@
 
             <script>
                 document.addEventListener('livewire:init', () => {
-
                     CKEDITOR.replace('editor1');
-
                     CKEDITOR.instances.editor1.on('change', function () {
-
                         @this.set(
                             'description',
                             CKEDITOR.instances.editor1.getData()
                         );
-
                     });
-
                 });
             </script>
         </div>
@@ -104,16 +99,16 @@
 
         <!-- PRODUITS -->
         <div class="d-gril-col-6 d-gril-md-6 d-gril-12">
-            <div class="d-gril-group">
-                <div class="app-form-group">
-                    <label>Produits</label>
-                    <select wire:model="products" multiple class="app-form-control">
-                        @foreach($allProducts as $id => $name)
-                            <option value="{{ $id }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <div class="app-form-group">
+                <label>Produits</label>
             </div>
+
+            @foreach($allProducts as $id => $name)
+                <x-form.toggle
+                    label="{{ $name }}"
+                    wire:model="products"
+                    value="{{ $id }}" />
+            @endforeach
         </div>
 
         @if (!$subscription_id AND !$user_id)
@@ -142,7 +137,6 @@
                 </div>
             </div>
         @endif
-
 
         <!-- ADDRESSES -->
         <div class="d-gril-col-12">
@@ -222,7 +216,23 @@
 
         @endforeach
 
+
+        <div class="d-gril-col-12" style="margin-top: 10px">
+            <h5>Determinez les blocs à affichir dans l'invitation.</h5>
+        </div>
+
         <div class="d-gril-col-12 d-gril-md-6 d-gril-12">
+            <x-form.toggle label="Afficher adresse" wire:model="v_address" />
+            <x-form.toggle label="Afficher programme" wire:model="v_programme" />
+            <x-form.toggle label="Afficher detail_event" wire:model="v_detail_event" />
+            <x-form.toggle label="Afficher livre" wire:model="v_livre" />
+            <x-form.toggle label="Afficher infos invité" wire:model="v_infos_invite" />
+            <x-form.toggle label="Afficher bouton validé" wire:model="v_btn_valide" />
+            <x-form.toggle label="Afficher date de début" wire:model="v_date_debut" />
+            <x-form.toggle label="Afficher date de fin" wire:model="v_date_fin" />
+        </div>
+
+        <div class="d-gril-col-12 d-gril-md-6 d-gril-12" style="margin-top: 10px">
             <div class="d-gril-group">
                 <button class="btn btn-primary">
                     {{ $isEdit ? 'Modifier' : 'Créer' }}

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Programmes extends Model
 {
-    protected $fillable = ['event_id', 'titre', 'detail', 'icone', 'date_heure', 'type'];
+    protected $fillable = ['event_id', 'titre', 'detail', 'icone', 'date_heure', 'type', 'order'];
 
     public function event()
     {

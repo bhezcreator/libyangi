@@ -18,7 +18,15 @@ class Event extends Model
         'end_date',
         'type',
         'image',
-        'status'
+        'status',
+        'v_address',
+        'v_programme',
+        'v_detail_event',
+        'v_livre',
+        'v_infos_invite',
+        'v_btn_valide',
+        'v_date_debut',
+        'v_date_fin',
     ];
 
     public function user()

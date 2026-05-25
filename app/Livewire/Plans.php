@@ -15,7 +15,7 @@ class Plans extends Component
     public $planId;
     public $name;
     public $price;
-    public $max_guests;
+    public $max_guests, $max_picture;
     public $features = [];
 
     public $isEdit = false;
@@ -31,6 +31,7 @@ class Plans extends Component
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'max_guests' => 'required|integer',
+            'max_picture' => 'nullable|integer',
             'features' => 'nullable'
         ];
     }
@@ -57,7 +58,8 @@ class Plans extends Component
             'name',
             'price',
             'max_guests',
-            'features'
+            'features',
+            'max_picture'
         ]);
 
         $this->isEdit = false;
@@ -80,6 +82,7 @@ class Plans extends Component
                 'name' => $this->name,
                 'price' => $this->price,
                 'max_guests' => $this->max_guests,
+                'max_picture' => $this->max_picture,
                 'features' => $features
             ]
         );
@@ -102,6 +105,7 @@ class Plans extends Component
         $this->name = $plan->name;
         $this->price = $plan->price;
         $this->max_guests = $plan->max_guests;
+        $this->max_picture = $plan->max_picture;
         $this->features = $plan->features ?? [];
 
         $this->isEdit = true;

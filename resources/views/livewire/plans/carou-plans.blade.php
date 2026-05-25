@@ -24,6 +24,12 @@
                 <i class="las la-users"></i>
                 {{ $plan['max_guests'] }} invités max
             </p>
+
+            <p class="carou-plans-guests">
+                <i class="las la-image"></i>
+                {{ $plan['max_picture'] }} photos max
+            </p>
+
             <ul class="carou-plans-features">
                 @foreach($plan['features'] as $feature)
                     <li><i class="las la-check"></i> {{ $feature }}</li>

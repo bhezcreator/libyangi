@@ -29,6 +29,15 @@ class AddEvent extends Component
     public $start_date, $end_date, $status = 'brouillon';
     public $image;
 
+    public bool $v_address = true;
+    public bool $v_programme = true;
+    public bool $v_detail_event = true;
+    public bool $v_livre = true;
+    public bool $v_infos_invite = true;
+    public bool $v_btn_valide = true;
+    public bool $v_date_debut = true;
+    public bool $v_date_fin = false;
+
     public $products = []; // selected
     public $allProducts = [];
     public $themes = [];
@@ -79,6 +88,15 @@ class AddEvent extends Component
             $this->start_date = $event->start_date;
             $this->end_date = $event->end_date;
             $this->status = $event->status;
+
+            $this->v_address = $event->v_address;
+            $this->v_programme = $event->v_programme;
+            $this->v_detail_event = $event->v_detail_event;
+            $this->v_livre = $event->v_livre;
+            $this->v_infos_invite = $event->v_infos_invite;
+            $this->v_btn_valide = $event->v_btn_valide;
+            $this->v_date_debut = $event->v_date_debut;
+            $this->v_date_fin = $event->v_date_fin;
 
             $this->products = $event->products->pluck('id')->toArray();
 
@@ -158,6 +176,15 @@ class AddEvent extends Component
             'end_date' => $this->end_date,
             'type' => $this->type,
             'status' => $this->status,
+
+            'v_address' => $this->v_address,
+            'v_programme' => $this->v_programme,
+            'v_detail_event' => $this->v_detail_event,
+            'v_livre' => $this->v_livre,
+            'v_infos_invite' => $this->v_infos_invite,
+            'v_btn_valide' => $this->v_btn_valide,
+            'v_date_debut' => $this->v_date_debut,
+            'v_date_fin' => $this->v_date_fin,
         ];
 
         // IMAGE

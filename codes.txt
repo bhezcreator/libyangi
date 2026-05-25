@@ -1,0 +1,14 @@
+          <div>
+
+                <div>
+                    <i class="las fa-eye"></i>
+                    <p>
+                        <strong>Désolé, la date limite de l'invitation a été déjà dépassé.</strong> 
+                    </p>
+                 </div>
+
+                <a href="{{ route('images.show.public',[$event->id]) }}">
+                    <i class="las fa-eye"></i> Voir les photos
+                </a>
+
+            </div>

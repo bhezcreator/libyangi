@@ -20,64 +20,59 @@
     </div>
 
     <div x-data="toastSystem()" x-on:toast.window="add($event.detail)" class="toast-container" >
-      <template x-for="(toast, index) in toasts" :key="index">
-          <div
-              class="app-toast"
-              x-show="toast.show"
-              x-transition
-              :style="'border-left:5px solid ' + toast.color"
-          >
-              <span class="app-toast-icon" x-text="toast.icon"></span>
-              <span class="app-toast-message" x-text="toast.message"></span>
-          </div>
-      </template>
+        <template x-for="(toast, index) in toasts" :key="index">
+                <div class="app-toast" x-show="toast.show" x-transition :style="'border-left:5px solid ' + toast.color">
+                    <span class="app-toast-icon" x-transition :style="'color: ' + toast.color" x-text="toast.icon"></span>
+                    <span class="app-toast-message" x-text="toast.message"></span>
+                </div>
+        </template>
     </div>
 
     <!-- ================= HEADER ================= -->
     <header>
-      <div class="logo">
-        <img src="{{ asset('images/logo libyangi mobile transp.png') }}" alt="logo" />
-      </div>
-
-      <div class="header-right">
-        <!-- NOTIFICATIONS -->
-        <div class="icon-btn">
-          <i class="la la-bell"></i>
-          <span class="badge">3</span>
+        <div class="logo">
+            <img src="{{ asset('images/logo libyangi mobile transp.png') }}" alt="logo" />
         </div>
 
-        <!-- USER -->
-        <div class="user" onclick="toggleDropdown()" title="{{ auth()->user()->name }}">
-          <i class="la la-user-circle"></i>
-              {{ \Illuminate\Support\Str::limit(auth()->user()->name, 5, '...') }}
+        <div class="header-right">
+            <!-- MODE -->
+            <button class="btn-mode" onclick="toggleTheme()">
+                <i id="theme-icon" class="la la-moon"></i>
+            </button>
 
-          <div class="dropdown" id="dropdown">
-            {{-- <a href="#" class="dropdown-a"><i class="la la-user"></i> Profil</a> --}}
-            <a href="{{ route('settings') }}" class="dropdown-a"><i class="la la-cog"></i> Paramètres</a>
-            <a href="#" class="dropdown-a">
-              <form method="POST" action="{{ route('logout') }}" style="display:inline">
-                  @csrf
-                  <button type="submit" 
-                    class="icon-btns" 
-                    title="Se déconnecter" 
-                    style="border:none;background:transparent;margin:0;padding:0;cursor:pointer;">
-                    <i class="la la-sign-out"></i> Déconnexion
-                  </button>
-              </form>
-            </a>
-          </div>
+            <!-- NOTIFICATIONS -->
+            <div class="icon-btn">
+                <i class="la la-bell"></i>
+                <span class="badge">3</span>
+            </div>
+
+            <!-- USER -->
+            <div class="user" onclick="toggleDropdown()" title="{{ auth()->user()->name }}">
+                <i class="la la-user-circle"></i>
+                    {{ \Illuminate\Support\Str::limit(auth()->user()->name, 5, '...') }}
+
+                <div class="dropdown" id="dropdown">
+                    {{-- <a href="#" class="dropdown-a"><i class="la la-user"></i> Profil</a> --}}
+                    <a href="{{ route('settings') }}" class="dropdown-a"><i class="la la-cog"></i> Paramètres</a>
+                    <a href="#" class="dropdown-a">
+                    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                        @csrf
+                        <button type="submit" 
+                            class="icon-btns" 
+                            title="Se déconnecter" 
+                            style="border:none;background:transparent;margin:0;padding:0;cursor:pointer;">
+                            <i class="la la-sign-out"></i> Déconnexion
+                        </button>
+                    </form>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <!-- MODE -->
-        <button class="btn" onclick="toggleTheme()">
-          <i id="theme-icon" class="la la-moon"></i>
-        </button>
-      </div>
     </header>
 
     <!-- ================= CONTENT ================= -->
     <div class="container">
-      @yield('content')
+        @yield('content')
     </div>
 
     <!-- ================= BOTTOM NAV ================= -->
@@ -86,7 +81,7 @@
     @livewireScripts
 
     <script>
-          function toastSystem() {
+        function toastSystem() {
             return {
                 toasts: [],
 
@@ -120,7 +115,7 @@
                 }
             }
         }
-        </script>
+    </script>
     <script src="{{ asset('script.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

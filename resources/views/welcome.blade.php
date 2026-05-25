@@ -49,6 +49,8 @@
         }, 500); // correspond à la durée de transition
       });
 
+
+      // Nuages qui tombent
       for (let i = 0; i < 25; i++) {
         let p = document.createElement("div");
         p.className = "particle";

@@ -129,6 +129,7 @@ table {
     --primary: #9564ff;
     --secondary: #c6b2ef;
     --accent: #f97316;
+    --color-badge: red;
 
     --bg: #1b2a4e;
     --card: rgba(17, 28, 54, 0.75);
@@ -177,7 +178,7 @@ table {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #0f172a;
+    background-color: var(--bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,8 +187,8 @@ table {
 
 /* Logo */
 .loader-logo-img img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     animation: spinBounce 2s infinite ease-in-out;
 }
@@ -220,7 +221,7 @@ body {
 }
 
 /* =========================
-   HEADER (glass effect)
+    HEADER (glass effect)
 ========================= */
 header {
     height: var(--header-height);
@@ -322,6 +323,19 @@ header {
 }
 
 /* BUTTON */
+/* BUTTON */
+.btn-mode {
+    background: var(--primary);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: 0.2s;
+    text-decoration: none;
+}
+
 .btn {
     background: var(--primary);
     color: var(--text);
@@ -544,7 +558,8 @@ button:hover #theme-icon {
 
 .modal-interne-header {
     height: var(--header-height, 60px);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+    background-color: var(--card);
     color: var(--text);
     display: flex;
     justify-content: space-between;
@@ -757,9 +772,10 @@ button:hover #theme-icon {
 }
 
 .app-toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin: 10px;
 }
 
 .app-toggle input {
@@ -793,6 +809,17 @@ button:hover #theme-icon {
 
 .app-toggle input:checked + .slider::before {
     transform: translateX(20px);
+}
+
+.app-toggle .text-toggle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.app-toggle input:checked ~ .text-toggle {
+    color: var(--primary);
 }
 
 /* Base Button */
@@ -2189,7 +2216,7 @@ select:focus {
 }
 
 /* =========================================
-   DETAIL VUE EVENT
+    DETAIL VUE EVENT
 ========================================= */
 
 .detail-vue-event-wrapper {
@@ -2201,7 +2228,7 @@ select:focus {
 }
 
 /* =========================================
-   LEFT
+    LEFT
 ========================================= */
 
 .detail-vue-event-left {
@@ -2211,7 +2238,7 @@ select:focus {
 }
 
 /* =========================================
-   RIGHT
+    RIGHT
 ========================================= */
 
 .detail-vue-event-right {
@@ -2224,7 +2251,7 @@ select:focus {
 }
 
 /* =========================================
-   CARDS
+    CARDS
 ========================================= */
 
 .detail-vue-event-card,
@@ -2253,20 +2280,21 @@ select:focus {
 }
 
 /* =========================================
-   IMAGE
+    IMAGE
 ========================================= */
 
 .detail-vue-event-image {
     width: 100%;
-    height: 380px;
+    height: 400px;
     object-fit: cover;
+    object-position: center top;
     border-radius: 20px;
     margin-bottom: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* =========================================
-   CONTENT
+    CONTENT
 ========================================= */
 
 .detail-vue-event-content {
@@ -2280,9 +2308,9 @@ select:focus {
     gap: 8px;
     padding: 8px 16px;
     border-radius: 50px;
-    background: rgba(149, 100, 255, 0.15);
+    background: rgba(149, 100, 255, 0.055);
     border: 1px solid rgba(149, 100, 255, 0.25);
-    color: var(--secondary);
+    color: var(--primary);
     margin-bottom: 18px;
     font-size: 13px;
     font-weight: 700;
@@ -2299,7 +2327,7 @@ select:focus {
 }
 
 /* =========================================
-   META
+    META
 ========================================= */
 
 .detail-vue-event-meta {
@@ -2326,7 +2354,7 @@ select:focus {
 }
 
 /* =========================================
-   SECTION
+    SECTION
 ========================================= */
 
 .detail-vue-event-section {
@@ -2354,7 +2382,7 @@ select:focus {
 }
 
 /* =========================================
-   DESCRIPTION
+    DESCRIPTION
 ========================================= */
 
 .detail-vue-event-description {
@@ -2368,7 +2396,7 @@ select:focus {
 }
 
 /* =========================================
-   GRID
+    GRID
 ========================================= */
 
 .detail-vue-event-grid {
@@ -2378,11 +2406,15 @@ select:focus {
 }
 
 .detail-vue-event-grid div {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 18px;
+    background: rgba(149, 100, 255, 0.055);
+    border: 1px solid rgba(149, 100, 255, 0.18);
+    color: var(--primary);
+    padding: 10px;
     border-radius: 16px;
-    color: var(--muted);
+}
+
+.detail-vue-event-grid div i {
+    color: var(--primary);
 }
 
 .detail-vue-event-grid strong {
@@ -2392,24 +2424,7 @@ select:focus {
 }
 
 /* =========================================
-   ADDRESS
-========================================= */
-
-.detail-vue-event-address {
-    padding: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--muted);
-}
-
-.detail-vue-event-address div:first-child {
-    margin-bottom: 10px;
-}
-
-/* =========================================
-   PRODUCTS
+    PRODUCTS
 ========================================= */
 
 .detail-vue-event-products {
@@ -2420,10 +2435,11 @@ select:focus {
 
 .detail-vue-event-product,
 .detail-vue-event-badge {
-    background: rgba(149, 100, 255, 0.12);
+    background: rgba(149, 100, 255, 0.055);
     border: 1px solid rgba(149, 100, 255, 0.18);
-    color: var(--secondary);
+    color: var(--primary);
     padding: 12px 16px;
+    margin: 5px 0;
     border-radius: 50px;
     font-size: 14px;
     font-weight: 600;
@@ -2432,11 +2448,11 @@ select:focus {
 
 .detail-vue-event-product:hover {
     transform: translateY(-2px);
-    background: rgba(149, 100, 255, 0.18);
+    background: rgba(149, 100, 255, 0.055);
 }
 
 /* =========================================
-   SHARE
+    SHARE
 ========================================= */
 
 .detail-vue-event-share-title {
@@ -2447,7 +2463,7 @@ select:focus {
 }
 
 /* =========================================
-   BUTTONS
+    BUTTONS
 ========================================= */
 
 .detail-vue-event-btn {
@@ -2511,7 +2527,7 @@ select:focus {
 }
 
 /* =========================================
-   EMPTY TEXT
+    EMPTY TEXT
 ========================================= */
 
 .detail-vue-event-card p {
@@ -2519,7 +2535,7 @@ select:focus {
 }
 
 /* =========================================
-   RESPONSIVE
+    RESPONSIVE
 ========================================= */
 
 @media (max-width: 1200px) {
@@ -2961,5 +2977,354 @@ select:focus {
 
     .photo-event__image {
         height: 220px;
+    }
+}
+
+/* ========================= */
+/* GLOBAL PRESENTE EVT */
+/* ========================= */
+
+.evt-wrapper {
+    width: 100%;
+    padding: 0;
+}
+
+/* ========================= */
+/* FILTER CARD */
+/* ========================= */
+
+.evt-filter-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px;
+}
+
+.evt-filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto auto;
+    gap: 15px;
+}
+
+.evt-search-box {
+    position: relative;
+    background: var(--card);
+}
+
+.evt-search-input {
+    width: 100%;
+    height: 58px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding-left: 55px;
+    font-size: 15px;
+    color: var(--color-text);
+    outline: none;
+    transition: 0.3s;
+    background: var(--card);
+}
+
+.evt-search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(149, 100, 255, 0.1);
+}
+
+.evt-search-icon {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    color: var(--muted);
+    background: var(--card);
+}
+
+.evt-select {
+    height: 58px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 0 18px;
+    font-size: 14px;
+    background: var(--card);
+    outline: none;
+    color: var(--color-text);
+}
+
+.evt-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(149, 100, 255, 0.1);
+}
+
+.evt-reset-btn {
+    height: 58px;
+    padding: 0 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    color: var(--color-text);
+    background: rgba(255, 166, 0, 0.247);
+}
+
+.evt-reset-btn:hover {
+    opacity: 0.9;
+}
+
+.evt-add-btn {
+    height: 58px;
+    padding: 0 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+    transition: 0.3s;
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.evt-add-btn:hover {
+    opacity: 0.9;
+}
+
+/* ========================= */
+/* TABLE */
+/* ========================= */
+
+.evt-table-card {
+    background: var(--card);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.evt-table-responsive {
+    overflow-x: auto;
+}
+
+.evt-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+.evt-table thead {
+    background: var(--card);
+}
+
+.evt-table th {
+    text-align: left;
+    padding: 24px 20px;
+    font-size: 13px;
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.evt-table td {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+/* ========================= */
+/* EVENT INFO */
+/* ========================= */
+
+.evt-event-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.evt-event-image {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.evt-event-info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--color-text);
+}
+
+.evt-event-info span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ========================= */
+/* BADGES */
+/* ========================= */
+
+.evt-badge {
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.evt-badge-purple {
+    background: #8056ff23;
+    color: #7a4df3;
+}
+
+.evt-badge-pink {
+    background: #ea4fb123;
+    color: #ea4fb0;
+}
+
+/* ========================= */
+/* DATE */
+/* ========================= */
+
+.evt-date {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.evt-date strong {
+    color: var(--color-text);
+    font-size: 15px;
+}
+
+.evt-date span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ========================= */
+/* LOCATION */
+/* ========================= */
+
+.evt-location {
+    line-height: 1.7;
+    color: var(--color-text);
+    font-size: 15px;
+}
+
+/* ========================= */
+/* STATUS */
+/* ========================= */
+
+.evt-status {
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.evt-status-green {
+    background: #eaf9ee;
+    color: #22a447;
+}
+
+.evt-status-orange {
+    background: rgba(255, 166, 0, 0.13);
+    color: orange;
+}
+
+.evt-status-red {
+    background: rgba(255, 0, 0, 0.13);
+    color: red;
+}
+
+.evt-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 0, 0, 0.13);
+    color: red;
+    padding: 10px;
+    border-radius: 18px;
+}
+
+/* ========================= */
+/* ACTIONS */
+/* ========================= */
+
+.evt-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.evt-action-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    text-decoration: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.evt-view-btn {
+    background: rgba(0, 128, 0, 0.13);
+    color: green;
+}
+
+.evt-edit-btn {
+    background: #8056ff23;
+    color: #7f56ff;
+}
+
+.evt-delete-btn {
+    background: #ff4b4b23;
+    color: #ff4b4b;
+}
+
+.evt-action-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 992px) {
+    .evt-filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .evt-reset-btn,
+    .evt-select,
+    .evt-search-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .evt-wrapper {
+        padding: 10px;
+    }
+
+    .evt-table th,
+    .evt-table td {
+        padding: 15px;
+    }
+
+    .evt-event-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .evt-event-info h4 {
+        font-size: 16px;
     }
 }

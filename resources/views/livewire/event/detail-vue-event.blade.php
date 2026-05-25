@@ -24,7 +24,6 @@
                 </h1>
 
                 <div class="detail-vue-event-meta">
-
                     <div>
                         <strong>Type :</strong>
                         {{ $event->type }}
@@ -39,12 +38,6 @@
                         <strong>Fin :</strong>
                         {{ \Carbon\Carbon::parse($event->end_date)->format('d/m/Y H:i') }}
                     </div>
-
-                    <div>
-                        <strong>Slug :</strong>
-                        {{ $event->slug }}
-                    </div>
-
                 </div>
 
                 <div class="detail-vue-event-section">
@@ -66,7 +59,6 @@
                 </h2>
 
                 @if($event->theme)
-                    {{-- <div class="detail-vue-event-theme"> --}}
                     <div class="detail-vue-event-badge">
                         {{ $event->theme->title }}
                     </div>
@@ -82,66 +74,53 @@
             </h2>
 
             <div class="detail-vue-event-grid">
-
                 <div>
-                    <strong>Nom :</strong>
+                    <i class="las la-user"></i>
                     {{ $event->user->name ?? '-' }}
                 </div>
 
                 <div>
-                    <strong>Email :</strong>
+                    <i class="las la-envelope"></i>
                     {{ $event->user->email ?? '-' }}
                 </div>
-
             </div>
 
         </div>
 
+        <div class="detail-vue-event-card">
+            <h2 class="detail-vue-event-section-title">
+                Concerne
+            </h2>
+
+            <div class="detail-vue-event-badge">
+                {{ $event->concerne ?? '-' }}
+            </div>
+        </div>
+
         {{-- ADRESSES --}}
         <div class="detail-vue-event-card">
-
             <h2 class="detail-vue-event-section-title">
                 Adresses
             </h2>
 
             @forelse($event->addresses as $address)
-
-                <div class="detail-vue-event-address">
-
-                    <div>
-                        <strong>Adresse :</strong>
-                        {{ $address->address ?? '-' }}
-                    </div>
-
-                    <div>
-                        <strong>Latitude :</strong>
-                        {{ $address->latitude ?? '-' }}
-                    </div>
-
-                    <div>
-                        <strong>Longitude :</strong>
-                        {{ $address->longitude ?? '-' }}
-                    </div>
-
+                <div class="detail-vue-event-badge">
+                    {{ $address->address ?? '-' }}
                 </div>
-
             @empty
-
                 <p>Aucune adresse</p>
-
             @endforelse
-
         </div>
 
         {{-- INVITES --}}
         <div class="detail-vue-event-card">
 
             <h2 class="detail-vue-event-section-title">
-                Invités
+                Invité(s)
             </h2>
 
             <div class="detail-vue-event-badge">
-                {{ $event->guests->count() }} invités
+                {{ $event->guests->count() }} invité(s)
             </div>
 
         </div>
@@ -185,7 +164,7 @@
 
                 {{-- VOIR --}}
                 <a
-                    href="{{ route('events.show', $event->slug) }}"
+                    href="{{ route('events.show', [$event->slug, bin2hex($event->id)]) }}"
                     target="_blank"
                     class="detail-vue-event-btn">
                     <i class="las la-external-link-alt"></i>
@@ -200,7 +179,7 @@
                 </a>
 
                 @php
-                    $lien = route('events.show', $event->slug);
+                    $lien = route('events.show', [$event->slug, bin2hex($event->id)]);
 
                     $subject = rawurlencode('Tu es invité(e) !');
                     $body = rawurlencode(
@@ -215,13 +194,12 @@
                     class="detail-vue-event-btn">
 
                     <i class="las la-envelope"></i>
-
                     Partager Email
                 </a>
 
                 {{-- FACEBOOK --}}
                 <a
-                    href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', $event->slug)) }}"
+                    href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', [$event->slug, bin2hex($event->id)])) }}"
                     target="_blank"
                     class="detail-vue-event-btn">
                     <i class="lab la-facebook-f"></i>
@@ -230,7 +208,7 @@
 
                 {{-- QR CODE --}}
                 <a
-                    href="{{ route('events.qr', [bin2hex(route('events.show', [$event->slug]))]) }}"
+                    href="{{ route('events.qr', [bin2hex(route('events.show', [$event->slug, $event->id]))]) }}"
                     class="detail-vue-event-btn">
                     <i class="las la-qrcode"></i>
                     Générer QR Code
@@ -244,7 +222,7 @@
 
     <script>
         document.getElementById('share-whatsapp').addEventListener('click', function () {
-            const message = encodeURIComponent("*{{ $event->title }}*\n\n  _Veuillez cliquer sur le lien ci-dessous pour visualiser, réagir et télécharger celle-ci(ou celui-ci)._ \n\n👉 {{ route('events.show', $event->slug) }}");
+            const message = encodeURIComponent("*{{ $event->title }}*\n\n  _Veuillez cliquer sur le lien ci-dessous pour visualiser, réagir et télécharger celle-ci(ou celui-ci)._ \n\n👉 {{ route('events.show', [$event->slug, bin2hex($event->id)]) }}");
             const whatsappUrl = `https://wa.me/?text=${message}`;
             window.open(whatsappUrl, '_blank');
         });

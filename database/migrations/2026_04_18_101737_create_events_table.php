@@ -27,6 +27,14 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->enum('status', ['brouillon', 'publié', 'fermé'])->default('brouillon');
 
+            $table->boolean('v_address')->default(true);
+            $table->boolean('v_programme')->default(true);
+            $table->boolean('v_detail_event')->default(true);
+            $table->boolean('v_livre')->default(true);
+            $table->boolean('v_infos_invite')->default(true);
+            $table->boolean('v_btn_valide')->default(true);
+            $table->boolean('v_date_debut')->default(true);
+            $table->boolean('v_date_fin')->default(true);
             $table->timestamps();
         });
     }

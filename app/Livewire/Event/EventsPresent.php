@@ -12,23 +12,60 @@ class EventsPresent extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'costum';
+
     public $search = '';
-    protected $paginationTheme = 'custom';
+    public $type = '';
+    public $status = '';
 
     public $confirmingDelete = false;
-    public $deleteId;
+    public $deleteId = null;
 
-    protected $queryString = ['search'];
+    protected $queryString = [
+        'search',
+        'type',
+        'status'
+    ];
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    /* ========================
-        DELETE
-    ========================*/
-    public function confirmDelete(int $id)
+    public function updatingType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus()
+    {
+        $this->resetPage();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESET FILTERS
+    |--------------------------------------------------------------------------
+    */
+
+    public function resetFilters()
+    {
+        $this->reset([
+            'search',
+            'type',
+            'status'
+        ]);
+
+        $this->resetPage();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE
+    |--------------------------------------------------------------------------
+    */
+
+    public function confirmDelete($id)
     {
         $this->deleteId = $id;
         $this->confirmingDelete = true;
@@ -37,6 +74,7 @@ class EventsPresent extends Component
     public function confirm()
     {
         $event = $this->baseQuery()->findOrFail($this->deleteId);
+
         $event->delete();
 
         $this->confirmingDelete = false;
@@ -44,22 +82,30 @@ class EventsPresent extends Component
         $this->dispatch(
             'toast',
             type: 'success',
-            message: 'Event supprimé avec succès.'
+            message: 'Événement supprimé avec succès.'
         );
     }
 
-    /**
-     * Base query avec gestion des rôles
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | BASE QUERY
+    |--------------------------------------------------------------------------
+    */
+
     public function baseQuery()
     {
-        $query = Event::query();
+        $query = Event::query()
+            ->with([
+                'theme',
+                'guests',
+                'addresses'
+            ]);
 
         $user = User::find(Auth::id());
-        // Si ce n'est pas un admin
+
         if ($user->getRoleNames()->first() !== 'admin') {
 
-            $query->where('user_id', $user->id)->where('status', 'publié');
+            $query->where('user_id', $user->id);
         }
 
         return $query;
@@ -68,15 +114,37 @@ class EventsPresent extends Component
     public function render()
     {
         $events = $this->baseQuery()
-            ->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('type', 'like', '%' . $this->search . '%');
+
+            ->when($this->search, function ($query) {
+
+                $query->where(function ($q) {
+
+                    $q->where('title', 'like', '%' . $this->search . '%')
+                        ->orWhere('type', 'like', '%' . $this->search . '%')
+                        ->orWhere('description', 'like', '%' . $this->search . '%');
+                });
             })
+
+            ->when($this->type, function ($query) {
+
+                $query->where('type', $this->type);
+            })
+
+            ->when($this->status, function ($query) {
+
+                $query->where('status', $this->status);
+            })
+
             ->latest()
-            ->paginate(6);
+            ->paginate(10);
+
+        $types = Event::select('type')
+            ->distinct()
+            ->pluck('type');
 
         return view('livewire.event.events-present', [
-            'events' => $events
+            'events' => $events,
+            'types' => $types
         ]);
     }
 }

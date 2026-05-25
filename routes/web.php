@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Models\Media;
 use App\Models\Theme;
+use Illuminate\Support\Facades\Route;
 use LaravelQRCode\Facades\QRCode;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () {
@@ -69,6 +70,43 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::get('/event/show/{slug}', function ($slug) {
-    return view('pages.showEvent', compact('slug'));
+// Pages show invitation public
+Route::get('/event/show/{slug}/{id}', function ($slug, $id) {
+    $id = hex2bin($id);
+    return view('pages.showEvent', compact('slug', 'id'));
 })->name('events.show');
+
+// Pages show medias public
+Route::get('/event/show/picture/public/{id}', function ($id) {
+    return view('pages.showPictureEvent', compact('id'));
+})->name('events.show.picture');
+
+// Télécharger les medias
+Route::get('/event/show/download/medias/{id}', function ($id) {
+    $image = Media::findOrFail($id);
+    $file = $image->files->first();
+    $mediaUrl = $file ? public_path() . "/storage/" . $file->id . '/' . $file->file_name : null;
+
+    if (!$mediaUrl) {
+        abort(404, 'Fichier introuvable.');
+    }
+
+    return response()->download($mediaUrl);
+})->name('events.show.download');
+
+// Télécharger l'invitation public
+Route::get('events/download/{chemin}-{invite}-{event}', 'App\Http\Controllers\EvenementController@download')->name('events.download');
+
+// Show page de confirmation public
+Route::get('events/confirmation/{chemin}-{invite}-{event}', function ($chemin, $invite, $event) {
+    return view('pages.confirmation', compact('chemin', 'invite', 'event'));
+})->name('confirmation');
+
+// Show page de refus, en cas d'échec de l'invitation
+Route::get('events/refus/{invite}', function ($invite) {
+    return view('pages.refus', compact('invite'));
+})->name('refus');
+
+
+// Route pour vérifié l'invitation
+Route::get('/verify/invitation/{code}', 'App\Http\Controllers\EvenementController@verify')->middleware(['auth'])->name('invitation.verify');

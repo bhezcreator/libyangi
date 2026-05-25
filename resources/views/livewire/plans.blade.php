@@ -19,7 +19,8 @@
                 <div class="form-info">
                     <div><b>Nom:</b> {{ $plan->name }}</div>
                     <div><b>Prix:</b> {{ $plan->price }} $</div>
-                    <div><b>Invités max:</b> {{ $plan->max_guests }}</div>
+                    <div><b>Invités max:</b> {{ $plan->max_guests }}</div> 
+                    <div><b>Photos max:</b> {{ $plan->max_picture }}</div>
 
                     <div>
                         <b>Fonctionnalités: {{ count($plan->features) }}</b>
@@ -58,10 +59,10 @@
     <x-centered-modal title="{{ $isEdit ? 'Modifier' : 'Ajouter' }} Plan" width="50%">
 
         <form wire:submit.prevent="save">
-
             <x-form.input label="Nom" wire:model="name" placeholder="Nom" />
             <x-form.input label="Prix" type="number" wire:model="price" placeholder="Prix" />
             <x-form.input label="Nombre max invités" type="number" wire:model="max_guests" placeholder="Nombre d'invités" />
+            <x-form.input label="Nombre max photos" type="number" wire:model="max_picture" placeholder="Nombre des photos" />
 
             <x-form.textarea
                 label="Fonctionnalités (séparés par virgule)"
@@ -72,18 +73,14 @@
                 <i class="las la-save"></i>
                 {{ $isEdit ? 'Modifier' : 'Enregistrer' }}
             </button>
-
         </form>
 
         <x-slot name="footer">
             <button @click="$wire.showModalInterne = false" class="btn btn-danger">Fermer</button>
         </x-slot>
-     </x-centered-modal>
+    </x-centered-modal>
 
-   
     <!-- DELETE MODAL -->
-    <x-confirm-modal wire:model="confirmingDelete"
-        title="Suppression"
-        message="Supprimer ce plan ?" />
+    <x-confirm-modal wire:model="confirmingDelete" title="Suppression" message="Supprimer ce plan ?" />
 
 </div>
